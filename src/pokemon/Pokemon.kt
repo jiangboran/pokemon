@@ -1,20 +1,23 @@
 package pokemon
 
+import element.ELEMENT
+import skill.Skill
+
 abstract class Pokemon {
-    abstract var skill: List<String>
+    abstract var skill: List<Skill>
     abstract var height : Double
     abstract var weight : Double
     abstract var race : String
     abstract var uid : Int
+    abstract var element : ELEMENT
     abstract var character : String
     abstract var level : Int
-    abstract var name : String;
-    abstract var physical_attack_ability : Int
-    abstract var special_attack_ability : Int
-    abstract var physical_defense_ability : Int
-    abstract var special_defense_ability : Int
-    abstract var speed_ability : Int
-    abstract var life_ability : Int
+    abstract var name : String
+    abstract var physicalAttackAbility : Int
+    abstract var specialAttackAbility : Int
+    abstract var physicalDefenseAbility : Int
+    abstract var specialDefenseAbility : Int
+    abstract var speedAbility : Int
+    abstract var lifeAbility : Int
 
-    abstract fun move(skill : String,component: Pokemon)
 }
