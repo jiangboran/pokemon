@@ -1,7 +1,6 @@
 package pokemon
 
 import element.ELEMENT
-import skill.Pound
 import skill.Skill
 
 class Bulbasaur(override var name: String, override var character: String, skills: List<Skill>) : Pokemon() {

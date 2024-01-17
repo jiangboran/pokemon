@@ -2,7 +2,7 @@ package skill
 
 import element.ELEMENT
 
-abstract class Skill() {
+abstract class Skill(){
     abstract var skill_name : String
     abstract var skill_id : Int
     abstract var skill_discription : String
