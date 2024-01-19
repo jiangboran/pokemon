@@ -33,55 +33,49 @@ class Pokefighter {
 
     fun alive() : Boolean{return this.life > 0}
     fun useSkill(skill: Skill, component: Pokefighter) {
-        val basicHurt : Int
-        val finalHurt : Int
-        var hit : Boolean = true
+        val basicHurt : Int = (((level*2/5+2))*skill.skill_might*physicalAttack/component.physicalDefense/50+2)*(85..100).random()/100
+        val finalHurt : Int = (basicHurt * elementMultiple(relationship(element,component.element))).roundToInt()
+        println(name + "对" + component.name + "使用了" + skill.skill_name + "！")
+        Thread.sleep(1000)
         if (skill is Pound){
-            println(name + "使用了撞击！")
-            Thread.sleep(1000)
-            basicHurt = (((level*2/5+2))*skill.skill_might*physicalAttack/component.physicalDefense/50+2)*(85..100).random()/100
-            finalHurt = (basicHurt * elementMultiple(relationship(element,component.element))).roundToInt()
-            if ((0..100).random()<skill.skill_hit_rate*accuracy/component.evasion){
-                hit = true
-            } else {
-                hit = false
-            }
-            if (hit){
+            if (checkHit(skill,component)){
                 component.life -= finalHurt
                 println("对" + component.name + "造成了" + finalHurt + "点伤害！")
                 Thread.sleep(1000)
-                if (relationship(element,component.element) == RELATIONSHIP_TYPE.STRONG) {
-                    println("效果拔群！")
-                    Thread.sleep(1000)
-                } else if (relationship(element,component.element) == RELATIONSHIP_TYPE.WEAK){
-                    println("效果不是很好...")
-                    Thread.sleep(1000)
-                }
+                checkEffect(skill, component)
             } else {
                 println("没有命中...")
                 Thread.sleep(1000)
             }
         } else if (skill is Growl){
-            println(name + "使用了鸣叫！")
-            Thread.sleep(1000)
-            if ((0..100).random()<skill.skill_hit_rate*accuracy/component.evasion){
-                hit = true
-            } else {
-                hit = false
-            }
-            if (hit){
-                component.physicalAttack--
+            if (checkHit(skill,component)){
+                component.physicalAttackState--
                 println(component.name + "的攻击下降了！")
                 Thread.sleep(1000)
             } else {
                 println("没有命中...")
                 Thread.sleep(1000)
             }
-        } else if (skill.equals("fly_leaf_knife")){
-            println(name + "使用了飞叶快刀！")
-        } else if (skill.equals("cane_whip")){
-            println(name + "使用了藤鞭！")
         }
         skill.skill_pp--
+    }
+    private fun checkHit(skill: Skill, component: Pokefighter) : Boolean{
+        return if ((0..100).random()<skill.skill_hit_rate*accuracy/component.evasion){
+            true
+        } else {
+            false
+        }
+    }
+    private fun checkEffect(skill: Skill, component: Pokefighter){
+        if (relationship(skill.skill_element,component.element) == RELATIONSHIP_TYPE.STRONG) {
+            println("效果拔群！")
+            Thread.sleep(1000)
+        } else if (relationship(skill.skill_element,component.element) == RELATIONSHIP_TYPE.WEAK){
+            println("效果不是很好...")
+            Thread.sleep(1000)
+        }
+    }
+    private fun physicalSkill(skill: Skill, component: Pokefighter){
+
     }
 }
