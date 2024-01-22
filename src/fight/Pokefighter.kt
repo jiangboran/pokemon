@@ -93,14 +93,38 @@ class Pokefighter {
     }
     private fun changeSkill(skill: Skill, target: Pokefighter){
         if (checkHit(skill,target)){
-            if (skill.ability == ABILITY.PHYSICAL_ATTACK){
-                target.physicalAttackState += skill.abilityChange
-                println(target.name + "的攻击下降了！")
-                Thread.sleep(1000)
+            if (skill.ability == ABILITY.PHYSICAL_ATTACK_UP){
+                changePhysicalAttackUp(skill, target)
+            } else if (skill.ability == ABILITY.PHYSICAL_ATTACK_DOWN){
+                changePhysicalAttackDown(skill, target)
+            } else if (skill.ability == ABILITY.PHYSICAL_DEFENSE_UP){
+                changePhysicalDefenseUp(skill, target)
+            } else if (skill.ability == ABILITY.PHYSICAL_DEFENSE_DOWN){
+                changePhysicalDefenseDown(skill, target)
             }
         } else {
             println("没有命中...")
             Thread.sleep(1000)
         }
+    }
+    private fun changePhysicalAttackUp(skill: Skill, target: Pokefighter){
+        target.physicalAttackState += skill.abilityChange
+        println(target.name + "的攻击提升了" + skill.abilityChange + "点！")
+        Thread.sleep(1000)
+    }
+    private fun changePhysicalAttackDown(skill: Skill, target: Pokefighter){
+        target.physicalAttackState -= skill.abilityChange
+        println(target.name + "的攻击下降了" + skill.abilityChange + "点！")
+        Thread.sleep(1000)
+    }
+    private fun changePhysicalDefenseUp(skill: Skill, target: Pokefighter) {
+        target.physicalDefenseState += skill.abilityChange
+        println(target.name + "的防御提升了" + skill.abilityChange + "点！")
+        Thread.sleep(1000)
+    }
+    private fun changePhysicalDefenseDown(skill: Skill, target: Pokefighter){
+        target.physicalDefenseState -= skill.abilityChange
+        println(target.name + "的防御下降了" + skill.abilityChange + "点！")
+        Thread.sleep(1000)
     }
 }
